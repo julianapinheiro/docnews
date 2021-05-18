@@ -14,6 +14,7 @@ class App extends StatelessWidget {
       title: 'DocNews',
       theme: ThemeData(
         primaryColor: FeedColors.indigo,
+        fontFamily: 'IBMPlexSans',
       ),
       home: HomeScreen(),
     );
