@@ -22,7 +22,7 @@ class RoundedNavBar extends StatelessWidget {
         ),
         boxShadow: [
           BoxShadow(
-            color: FeedColors.black25,
+            color: Colors.black.withOpacity(0.25),
             offset: Offset(0, 10),
             spreadRadius: 0,
             blurRadius: 20,
