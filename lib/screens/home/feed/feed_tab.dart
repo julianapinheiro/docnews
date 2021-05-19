@@ -1,4 +1,6 @@
+import 'package:docnews/models/article.dart';
 import 'package:docnews/widgets/app_search_bar.dart';
+import 'package:docnews/widgets/article_item.dart';
 import 'package:flutter/material.dart';
 
 import '../../../utils/colors.dart';
@@ -10,11 +12,13 @@ class FeedTab extends StatefulWidget {
 
 class _FeedTabState extends State<FeedTab> {
   TextEditingController _textController = TextEditingController();
+  List<Article> articles = [];
 
   @override
   void initState() {
     super.initState();
     _textController.addListener(_onSearchTextChanged);
+    articles = MockedArticles.articles;
   }
 
   void _onSearchTextChanged() {
@@ -34,9 +38,61 @@ class _FeedTabState extends State<FeedTab> {
           title: 'Feed',
           textController: _textController,
           onCancelSearch: _onCancelSearch,
-          child: Expanded(child: Center(child: Text('Feed'))),
+          child: Expanded(
+            child: ListView.builder(
+              itemCount: articles.length + 1,
+              itemBuilder: (BuildContext context, int index) {
+                if (index == 0) {
+                  return getHeader();
+                }
+                return ArticleItem(article: articles[index - 1]);
+              },
+            ),
+          ),
         ),
       ),
     );
   }
+
+  Widget getHeader() {
+    return Container(
+      alignment: Alignment.centerLeft,
+      padding: EdgeInsets.fromLTRB(16, 20, 16, 0),
+      child: Text(
+        'News feed',
+        textAlign: TextAlign.center,
+        style: TextStyle(
+          fontSize: 24,
+          fontWeight: FontWeight.w700,
+          color: FeedColors.gray800,
+        ),
+      ),
+    );
+  }
+}
+
+class MockedArticles {
+  static final articles = [
+    Article(
+      title:
+          'Long March 5B falls into Indian Ocean after world follows rocket reentry',
+      imageUrl:
+          'https://neoradar.uai.com.br/wp-content/uploads/sites/8/2021/03/20200831045838-950x604.jpg',
+      publishedAt: DateTime.now(),
+    ),
+    Article(
+      title:
+          'SpaceX flies historic 10th mission of a Falcon 9 as Starlink constellation expands',
+      imageUrl:
+          'https://ibcdn.canaltech.com.br/bBvCV7Mud44YX6fdmXqidBCG8HE=/512x288/smart/i398159.jpeg',
+      publishedAt: DateTime.now(),
+    ),
+    Article(
+      title:
+          'SpaceX ready to break another rocket reuse record with launch early Sunday',
+      imageUrl:
+          'https://e3.365dm.com/21/05/1600x900/skynews-china-rocket_5372647.jpg?20210507082659',
+      publishedAt: DateTime.now(),
+    ),
+  ];
 }
