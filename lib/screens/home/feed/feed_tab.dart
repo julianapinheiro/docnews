@@ -1,3 +1,4 @@
+import 'package:docnews/api/articles.dart';
 import 'package:docnews/models/article.dart';
 import 'package:docnews/widgets/app_search_bar.dart';
 import 'package:docnews/widgets/article_item.dart';
@@ -19,7 +20,15 @@ class _FeedTabState extends State<FeedTab> {
   void initState() {
     super.initState();
     _textController.addListener(_onSearchTextChanged);
-    // articles = MockedArticles.articles;
+    _loadArticles();
+  }
+
+  void _loadArticles() async {
+    final _articles = await fetchArticles(0, 10);
+
+    setState(() {
+      articles = _articles;
+    });
   }
 
   void _onSearchTextChanged() {

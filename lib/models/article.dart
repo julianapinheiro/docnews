@@ -1,6 +1,5 @@
 class Article {
   final String? id;
-  final bool? featured;
   final String? title;
   final String? url;
   final String? imageUrl;
@@ -10,11 +9,22 @@ class Article {
 
   Article(
       {this.id,
-      this.featured,
       this.title,
       this.url,
       this.imageUrl,
       this.newsSite,
       this.summary,
       this.publishedAt});
+
+  factory Article.fromJson(Map<String, dynamic> json) {
+    return Article(
+      id: json['id'],
+      title: json['title'],
+      url: json['url'],
+      imageUrl: json['imageUrl'],
+      newsSite: json['newsSite'],
+      summary: json['summary'],
+      publishedAt: DateTime.parse(json['publishedAt']),
+    );
+  }
 }
