@@ -1,6 +1,7 @@
 import 'package:docnews/models/article.dart';
 import 'package:docnews/widgets/app_search_bar.dart';
 import 'package:docnews/widgets/article_item.dart';
+import 'package:docnews/widgets/empty_list_view.dart';
 import 'package:flutter/material.dart';
 
 import '../../../utils/colors.dart';
@@ -18,7 +19,7 @@ class _FeedTabState extends State<FeedTab> {
   void initState() {
     super.initState();
     _textController.addListener(_onSearchTextChanged);
-    articles = MockedArticles.articles;
+    // articles = MockedArticles.articles;
   }
 
   void _onSearchTextChanged() {
@@ -38,15 +39,17 @@ class _FeedTabState extends State<FeedTab> {
           title: 'Feed',
           textController: _textController,
           onCancelSearch: _onCancelSearch,
-          child: ListView.builder(
-            itemCount: articles.length + 1,
-            itemBuilder: (BuildContext context, int index) {
-              if (index == 0) {
-                return getHeader();
-              }
-              return ArticleItem(article: articles[index - 1]);
-            },
-          ),
+          child: (articles.isEmpty)
+              ? getEmptyView()
+              : ListView.builder(
+                  itemCount: articles.length + 1,
+                  itemBuilder: (BuildContext context, int index) {
+                    if (index == 0) {
+                      return getHeader();
+                    }
+                    return ArticleItem(article: articles[index - 1]);
+                  },
+                ),
         ),
       ),
     );
@@ -65,6 +68,27 @@ class _FeedTabState extends State<FeedTab> {
           color: FeedColors.gray800,
         ),
       ),
+    );
+  }
+
+  Widget getEmptyView() {
+    return EmptyListView(
+      image: Image.asset(
+        'assets/icons/ic_news_80.png',
+        color: FeedColors.gray300,
+        width: 80,
+        height: 80,
+      ),
+      children: [
+        Text(
+          'There are no news yet.',
+          style: TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.w500,
+            color: FeedColors.gray800,
+          ),
+        )
+      ],
     );
   }
 }
