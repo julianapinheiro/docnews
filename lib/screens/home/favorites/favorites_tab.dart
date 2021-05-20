@@ -34,7 +34,7 @@ class _FavoritesTabState extends State<FavoritesTab> {
           title: 'Favorites',
           textController: _textController,
           onCancelSearch: _onCancelSearch,
-          child: Expanded(child: Center(child: Text('Favorites'))),
+          child: Center(child: Text('Favorites')),
         ),
       ),
     );

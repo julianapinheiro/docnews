@@ -38,16 +38,14 @@ class _FeedTabState extends State<FeedTab> {
           title: 'Feed',
           textController: _textController,
           onCancelSearch: _onCancelSearch,
-          child: Expanded(
-            child: ListView.builder(
-              itemCount: articles.length + 1,
-              itemBuilder: (BuildContext context, int index) {
-                if (index == 0) {
-                  return getHeader();
-                }
-                return ArticleItem(article: articles[index - 1]);
-              },
-            ),
+          child: ListView.builder(
+            itemCount: articles.length + 1,
+            itemBuilder: (BuildContext context, int index) {
+              if (index == 0) {
+                return getHeader();
+              }
+              return ArticleItem(article: articles[index - 1]);
+            },
           ),
         ),
       ),

@@ -133,18 +133,13 @@ class _AppSearchBarState extends State<AppSearchBar>
                   ],
                 ),
               ),
-              Expanded(
-                child: Container(
-                  height: barHeight.value,
-                  child: Opacity(
-                    opacity: opacity.value,
-                    child: SearchInput(controller: widget.textController),
-                  ),
+              Container(
+                height: barHeight.value,
+                child: Opacity(
+                  opacity: opacity.value,
+                  child: SearchInput(controller: widget.textController),
                 ),
               ),
-              SizedBox(
-                height: 40,
-              )
             ],
           ),
         ),
