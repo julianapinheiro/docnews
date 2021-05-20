@@ -1,7 +1,7 @@
-import 'package:docnews/utils/colors.dart';
+import 'package:docnews/resources/colors.dart';
 import 'package:flutter/material.dart';
 
-import '../utils/colors.dart';
+import '../resources/colors.dart';
 
 class AppSearchBar extends StatefulWidget {
   final String title;
@@ -94,7 +94,7 @@ class _AppSearchBarState extends State<AppSearchBar>
     return ClipPath(
       clipper: BarClipper(),
       child: Container(
-        color: FeedColors.indigo,
+        color: DocnewsColors.indigo,
         child: Container(
           height: containerHeight.value,
           padding: const EdgeInsets.symmetric(horizontal: 16),

@@ -1,7 +1,7 @@
-import 'package:docnews/utils/colors.dart';
+import 'package:docnews/resources/colors.dart';
 import 'package:flutter/material.dart';
 
-import '../utils/colors.dart';
+import '../resources/colors.dart';
 
 class EmptyListView extends StatelessWidget {
   final Image image;
@@ -24,7 +24,7 @@ class EmptyListView extends StatelessWidget {
                 height: 160,
                 width: 160,
                 decoration: BoxDecoration(
-                  color: FeedColors.gray100,
+                  color: DocnewsColors.gray100,
                   borderRadius: BorderRadius.circular(80.0),
                 ),
                 child: image,

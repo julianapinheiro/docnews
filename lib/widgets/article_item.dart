@@ -1,5 +1,5 @@
 import 'package:docnews/models/article.dart';
-import 'package:docnews/utils/colors.dart';
+import 'package:docnews/resources/colors.dart';
 import 'package:docnews/utils/date_formatter.dart';
 import 'package:docnews/widgets/favorite_button.dart';
 import 'package:flutter/foundation.dart';
@@ -24,7 +24,7 @@ class ArticleItem extends StatelessWidget {
           borderRadius: BorderRadius.circular(16.0),
           boxShadow: [
             BoxShadow(
-              color: FeedColors.gray800.withOpacity(0.2),
+              color: DocnewsColors.gray800.withOpacity(0.2),
               offset: Offset(0, 8),
               spreadRadius: -20,
               blurRadius: 30,
@@ -65,7 +65,7 @@ class ArticleItem extends StatelessWidget {
                     Text(
                       article.title ?? "",
                       style: TextStyle(
-                        color: FeedColors.gray800,
+                        color: DocnewsColors.gray800,
                         fontWeight: FontWeight.w500,
                         fontSize: 16,
                       ),
@@ -91,7 +91,7 @@ class ArticleItem extends StatelessWidget {
             padding: const EdgeInsets.only(right: 8.0),
             child: Image.asset(
               'assets/icons/ic_calendar.png',
-              color: FeedColors.gray500,
+              color: DocnewsColors.gray500,
               width: 24,
               height: 24,
             ),
@@ -100,7 +100,7 @@ class ArticleItem extends StatelessWidget {
             Text(
               DateFormatter.toArticleDate(article.publishedAt!),
               style: TextStyle(
-                color: FeedColors.gray500,
+                color: DocnewsColors.gray500,
                 fontWeight: FontWeight.w500,
                 fontSize: 14,
               ),

@@ -5,7 +5,7 @@ import 'package:docnews/widgets/article_item.dart';
 import 'package:docnews/widgets/empty_list_view.dart';
 import 'package:flutter/material.dart';
 
-import '../../../utils/colors.dart';
+import '../../../resources/colors.dart';
 
 class FeedTab extends StatefulWidget {
   @override
@@ -43,7 +43,7 @@ class _FeedTabState extends State<FeedTab> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Container(
-        color: FeedColors.gray50,
+        color: DocnewsColors.gray50,
         child: AppSearchBar(
           title: 'Feed',
           textController: _textController,
@@ -74,7 +74,7 @@ class _FeedTabState extends State<FeedTab> {
         style: TextStyle(
           fontSize: 24,
           fontWeight: FontWeight.w700,
-          color: FeedColors.gray800,
+          color: DocnewsColors.gray800,
         ),
       ),
     );
@@ -84,7 +84,7 @@ class _FeedTabState extends State<FeedTab> {
     return EmptyListView(
       image: Image.asset(
         'assets/icons/ic_news_80.png',
-        color: FeedColors.gray300,
+        color: DocnewsColors.gray300,
         width: 80,
         height: 80,
       ),
@@ -94,7 +94,7 @@ class _FeedTabState extends State<FeedTab> {
           style: TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.w500,
-            color: FeedColors.gray800,
+            color: DocnewsColors.gray800,
           ),
         )
       ],

@@ -1,4 +1,4 @@
-import 'package:docnews/utils/colors.dart';
+import 'package:docnews/resources/colors.dart';
 import 'package:flutter/material.dart';
 
 import 'package:docnews/screens/home/home_screen.dart';
@@ -13,7 +13,7 @@ class App extends StatelessWidget {
     return MaterialApp(
       title: 'DocNews',
       theme: ThemeData(
-        primaryColor: FeedColors.indigo,
+        primaryColor: DocnewsColors.indigo,
         fontFamily: 'IBMPlexSans',
       ),
       home: HomeScreen(),

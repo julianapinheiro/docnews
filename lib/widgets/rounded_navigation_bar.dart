@@ -1,7 +1,7 @@
-import 'package:docnews/utils/colors.dart';
+import 'package:docnews/resources/colors.dart';
 import 'package:flutter/material.dart';
 
-import '../utils/colors.dart';
+import '../resources/colors.dart';
 
 class RoundedNavBar extends StatelessWidget {
   final List<BottomNavigationBarItem> items;
@@ -39,9 +39,9 @@ class RoundedNavBar extends StatelessWidget {
           currentIndex: currentIndex ?? 0,
           onTap: onTap,
           iconSize: 24,
-          selectedItemColor: FeedColors.gray900,
-          selectedIconTheme: IconThemeData(color: FeedColors.indigo),
-          unselectedIconTheme: IconThemeData(color: FeedColors.gray400),
+          selectedItemColor: DocnewsColors.gray900,
+          selectedIconTheme: IconThemeData(color: DocnewsColors.indigo),
+          unselectedIconTheme: IconThemeData(color: DocnewsColors.gray400),
           selectedLabelStyle: TextStyle(
             fontWeight: FontWeight.w600,
             letterSpacing: 0.8,
@@ -49,7 +49,7 @@ class RoundedNavBar extends StatelessWidget {
           ),
           unselectedLabelStyle: TextStyle(
             fontWeight: FontWeight.normal,
-            color: FeedColors.gray700,
+            color: DocnewsColors.gray700,
             letterSpacing: 0.8,
             fontSize: 12,
           ),

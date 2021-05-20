@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-abstract class FeedColors {
+abstract class DocnewsColors {
   static const indigo = Color(0xFF0C39AC);
 
   static const gray50 = Color(0xFFF9FAFB);

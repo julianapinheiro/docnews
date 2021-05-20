@@ -1,4 +1,4 @@
-import 'package:docnews/utils/colors.dart';
+import 'package:docnews/resources/colors.dart';
 import 'package:flutter/material.dart';
 
 class FavoriteButton extends StatefulWidget {
@@ -51,7 +51,7 @@ class _FavoriteButtonState extends State<FavoriteButton> {
       _isFavorite
           ? 'assets/icons/ic_favorite.png'
           : 'assets/icons/ic_favorite_outline.png',
-      color: _isFavorite ? FeedColors.indigo : FeedColors.gray500,
+      color: _isFavorite ? DocnewsColors.indigo : DocnewsColors.gray500,
       width: 24,
       height: 24,
       key: ValueKey<bool>(_isFavorite),

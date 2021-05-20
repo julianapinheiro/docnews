@@ -3,7 +3,7 @@ import 'package:docnews/widgets/rounded_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:docnews/screens/home/feed/feed_tab.dart';
 
-import '../../utils/colors.dart';
+import '../../resources/colors.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({Key? key}) : super(key: key);
@@ -24,7 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: FeedColors.gray50,
+      backgroundColor: DocnewsColors.gray50,
       bottomNavigationBar: RoundedNavBar(
         items: [
           buildNavBarItem('assets/icons/ic_home.png', 'Feed'),
