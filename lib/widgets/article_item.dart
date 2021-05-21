@@ -1,3 +1,4 @@
+import 'package:docnews/widgets/loader_image.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -8,10 +9,8 @@ import 'package:docnews/widgets/article_info_view.dart';
 
 class ArticleItem extends StatelessWidget {
   final Article article;
-  final Widget? action;
 
-  const ArticleItem({Key? key, required this.article, this.action})
-      : super(key: key);
+  const ArticleItem({Key? key, required this.article}) : super(key: key);
 
   void _onPress(BuildContext context) {
     Navigator.push(context, Routes.artist(article: article));
@@ -22,6 +21,7 @@ class ArticleItem extends StatelessWidget {
     const double padding = 16.0;
     final double imgHeight =
         (MediaQuery.of(context).size.width - padding * 2) * 180 / 329;
+    final double cardPadding = article.imageUrl == null ? 0 : imgHeight;
     return InkWell(
       onTap: () => _onPress(context),
       child: Padding(
@@ -46,21 +46,24 @@ class ArticleItem extends StatelessWidget {
           ),
           child: Stack(
             children: [
-              AspectRatio(
-                aspectRatio: 329 / 180,
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(16.0),
-                    image: DecorationImage(
-                      fit: BoxFit.fitWidth,
-                      alignment: FractionalOffset.topCenter,
-                      image: NetworkImage(article.imageUrl ?? ""),
+              if (article.imageUrl != null)
+                AspectRatio(
+                  aspectRatio: 329 / 180,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(20.0),
+                      topRight: Radius.circular(20.0),
+                    ),
+                    child: Container(
+                      color: DocnewsColors.gray300,
+                      child: LoaderImage(
+                        imageUrl: article.imageUrl!,
+                      ),
                     ),
                   ),
                 ),
-              ),
               Container(
-                padding: EdgeInsets.only(top: imgHeight * 0.8),
+                padding: EdgeInsets.only(top: cardPadding * 0.8),
                 child: Container(
                   decoration: BoxDecoration(
                     color: Colors.white,
@@ -70,7 +73,7 @@ class ArticleItem extends StatelessWidget {
                   child: Column(
                     children: [
                       Text(
-                        article.title ?? "",
+                        article.title ?? 'No title found',
                         style: TextStyle(
                           color: DocnewsColors.gray800,
                           fontWeight: FontWeight.w500,

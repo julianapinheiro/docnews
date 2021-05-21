@@ -1,3 +1,4 @@
+import 'package:docnews/widgets/loader_image.dart';
 import 'package:flutter/material.dart';
 
 import 'package:docnews/widgets/article_info_view.dart';
@@ -38,24 +39,8 @@ class _ArticleScreenState extends State<ArticleScreen> {
           if (widget.article.imageUrl != null)
             AspectRatio(
               aspectRatio: 360 / 240,
-              child: Image.network(
-                widget.article.imageUrl!,
-                alignment: FractionalOffset.topCenter,
-                fit: BoxFit.fitWidth,
-                loadingBuilder: (BuildContext context, Widget child,
-                    ImageChunkEvent? loadingProgress) {
-                  if (loadingProgress == null) {
-                    return child;
-                  }
-                  return Center(
-                    child: CircularProgressIndicator(
-                      value: loadingProgress.expectedTotalBytes != null
-                          ? loadingProgress.cumulativeBytesLoaded /
-                              loadingProgress.expectedTotalBytes!
-                          : null,
-                    ),
-                  );
-                },
+              child: LoaderImage(
+                imageUrl: widget.article.imageUrl!,
               ),
             ),
           Container(
