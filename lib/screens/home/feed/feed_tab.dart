@@ -1,8 +1,11 @@
+import 'dart:async';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import 'package:docnews/data/repositories/repository.dart';
 import 'package:docnews/widgets/app_search_bar.dart';
 import 'package:docnews/widgets/empty_list_view.dart';
 import 'package:docnews/widgets/paged_article_list_view.dart';
-import 'package:flutter/material.dart';
-
 import '../../../resources/colors.dart';
 
 class FeedTab extends StatefulWidget {
@@ -12,6 +15,8 @@ class FeedTab extends StatefulWidget {
 
 class _FeedTabState extends State<FeedTab> {
   TextEditingController _textController = TextEditingController();
+  Timer? _debounce;
+  String _searchTerm = '';
 
   @override
   void initState() {
@@ -19,12 +24,27 @@ class _FeedTabState extends State<FeedTab> {
     _textController.addListener(_onSearchTextChanged);
   }
 
+  @override
+  void dispose() {
+    _debounce?.cancel();
+    super.dispose();
+  }
+
   void _onSearchTextChanged() {
-    // TODO
+    if (_debounce?.isActive ?? false) _debounce?.cancel();
+    _debounce = Timer(const Duration(milliseconds: 500), () {
+      if (_searchTerm == _textController.text) return;
+      setState(() {
+        _searchTerm = _textController.text;
+      });
+    });
   }
 
   void _onCancelSearch() {
     _textController.text = "";
+    setState(() {
+      _searchTerm = _textController.text;
+    });
   }
 
   @override
@@ -37,27 +57,13 @@ class _FeedTabState extends State<FeedTab> {
           textController: _textController,
           onCancelSearch: _onCancelSearch,
           child: PagedArticleListView(
+            searchTerm: _searchTerm,
+            repository: Provider.of<ArticleRepository>(context),
             emptyListView: getEmptyView('There are no news yet'),
-            headerView: getHeader(),
+            headerText: 'News feed',
             errorView: getEmptyView(
                 'An error ocurred while loading the articles, please try again'),
           ),
-        ),
-      ),
-    );
-  }
-
-  Widget getHeader() {
-    return Container(
-      alignment: Alignment.centerLeft,
-      padding: EdgeInsets.fromLTRB(16, 20, 16, 0),
-      child: Text(
-        'News feed',
-        textAlign: TextAlign.center,
-        style: TextStyle(
-          fontSize: 24,
-          fontWeight: FontWeight.w700,
-          color: DocnewsColors.gray800,
         ),
       ),
     );

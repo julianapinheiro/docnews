@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'package:docnews/widgets/article_info_view.dart';
 import 'package:docnews/widgets/title_bar.dart';
-import 'package:docnews/models/article.dart';
+import 'package:docnews/data/db.dart';
 import 'package:docnews/resources/colors.dart';
 
 class ArticleScreen extends StatefulWidget {
@@ -36,13 +36,12 @@ class _ArticleScreenState extends State<ArticleScreen> {
       backgroundColor: DocnewsColors.gray50,
       body: Stack(
         children: [
-          if (widget.article.imageUrl != null)
-            AspectRatio(
-              aspectRatio: 360 / 240,
-              child: LoaderImage(
-                imageUrl: widget.article.imageUrl!,
-              ),
+          AspectRatio(
+            aspectRatio: 360 / 240,
+            child: LoaderImage(
+              imageUrl: widget.article.imageUrl,
             ),
+          ),
           Container(
             padding: EdgeInsets.only(top: 223),
             child: Column(
@@ -57,7 +56,7 @@ class _ArticleScreenState extends State<ArticleScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        widget.article.title ?? '',
+                        widget.article.title,
                         style: TextStyle(
                           color: DocnewsColors.gray800,
                           fontWeight: FontWeight.w500,
@@ -73,24 +72,22 @@ class _ArticleScreenState extends State<ArticleScreen> {
                           thickness: 1,
                         ),
                       ),
-                      if (widget.article.newsSite != null)
-                        getAuthorInfo(widget.article.newsSite!),
+                      getAuthorInfo(widget.article.newsSite),
                       ArticleInfoView(article: widget.article),
                     ],
                   ),
                 ),
-                if (widget.article.summary != null)
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 16.0, vertical: 24.0),
-                    child: Text(
-                      widget.article.summary!,
-                      style: TextStyle(
-                        color: DocnewsColors.gray700,
-                        fontSize: 16.0,
-                      ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 16.0, vertical: 24.0),
+                  child: Text(
+                    widget.article.summary,
+                    style: TextStyle(
+                      color: DocnewsColors.gray700,
+                      fontSize: 16.0,
                     ),
                   ),
+                ),
               ],
             ),
           ),

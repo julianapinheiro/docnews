@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:docnews/models/article.dart';
+import 'package:docnews/data/db.dart';
 import 'package:docnews/resources/colors.dart';
 import 'package:docnews/utils/date_formatter.dart';
 import 'package:docnews/widgets/favorite_button.dart';
@@ -29,15 +29,14 @@ class ArticleInfoView extends StatelessWidget {
             height: 24,
           ),
         ),
-        if (article.publishedAt != null)
-          Text(
-            DateFormatter.toArticleDate(article.publishedAt!),
-            style: TextStyle(
-              color: DocnewsColors.gray500,
-              fontWeight: FontWeight.w500,
-              fontSize: 14,
-            ),
+        Text(
+          DateFormatter.toArticleDate(article.publishedAt),
+          style: TextStyle(
+            color: DocnewsColors.gray500,
+            fontWeight: FontWeight.w500,
+            fontSize: 14,
           ),
+        ),
         SizedBox(
           width: 24,
         ),

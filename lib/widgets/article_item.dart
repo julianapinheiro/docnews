@@ -1,11 +1,11 @@
-import 'package:docnews/widgets/loader_image.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-import 'package:docnews/models/article.dart';
+import 'package:docnews/data/db.dart';
 import 'package:docnews/resources/colors.dart';
 import 'package:docnews/screens/routes.dart';
 import 'package:docnews/widgets/article_info_view.dart';
+import 'package:docnews/widgets/loader_image.dart';
 
 class ArticleItem extends StatelessWidget {
   final Article article;
@@ -21,7 +21,7 @@ class ArticleItem extends StatelessWidget {
     const double padding = 16.0;
     final double imgHeight =
         (MediaQuery.of(context).size.width - padding * 2) * 180 / 329;
-    final double cardPadding = article.imageUrl == null ? 0 : imgHeight;
+    final double cardPadding = imgHeight * 0.8;
     return InkWell(
       onTap: () => _onPress(context),
       child: Padding(
@@ -46,24 +46,23 @@ class ArticleItem extends StatelessWidget {
           ),
           child: Stack(
             children: [
-              if (article.imageUrl != null)
-                AspectRatio(
-                  aspectRatio: 329 / 180,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(20.0),
-                      topRight: Radius.circular(20.0),
-                    ),
-                    child: Container(
-                      color: DocnewsColors.gray300,
-                      child: LoaderImage(
-                        imageUrl: article.imageUrl!,
-                      ),
+              AspectRatio(
+                aspectRatio: 329 / 180,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(20.0),
+                    topRight: Radius.circular(20.0),
+                  ),
+                  child: Container(
+                    color: DocnewsColors.gray300,
+                    child: LoaderImage(
+                      imageUrl: article.imageUrl,
                     ),
                   ),
                 ),
+              ),
               Container(
-                padding: EdgeInsets.only(top: cardPadding * 0.8),
+                padding: EdgeInsets.only(top: cardPadding),
                 child: Container(
                   decoration: BoxDecoration(
                     color: Colors.white,
@@ -73,7 +72,7 @@ class ArticleItem extends StatelessWidget {
                   child: Column(
                     children: [
                       Text(
-                        article.title ?? 'No title found',
+                        article.title,
                         style: TextStyle(
                           color: DocnewsColors.gray800,
                           fontWeight: FontWeight.w500,

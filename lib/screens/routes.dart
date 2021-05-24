@@ -1,6 +1,7 @@
-import 'package:docnews/models/article.dart';
-import 'package:docnews/screens/article/article_screen.dart';
 import 'package:flutter/material.dart';
+
+import 'package:docnews/data/db.dart';
+import 'package:docnews/screens/article/article_screen.dart';
 
 class Routes {
   static MaterialPageRoute<void> artist({required Article article}) {
