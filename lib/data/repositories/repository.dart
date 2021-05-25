@@ -3,24 +3,40 @@ import 'package:docnews/data/daos/article_dao.dart';
 import 'package:docnews/data/services/article_service.dart';
 
 class ArticleRepository {
-  final ArticleService service;
-  final ArticleDao dao;
-  const ArticleRepository({
-    required this.service,
-    required this.dao,
-  });
+  final ArticleService _service;
+  final ArticleDao _dao;
+  const ArticleRepository(
+    this._service,
+    this._dao,
+  );
 
-  Future<List<Article>> getArticleListPage(
-      int offset, int limit, String? searchTerm) {
-    return service.fetchArticles(offset, limit, searchTerm ?? '');
+  Stream<List<Article>> _getArticleListPage(
+      int offset, int limit, String? searchTerm) async* {
+    final articles =
+        await _service.fetchArticles(offset, limit, searchTerm ?? '');
+    final stream = await _dao.getFavorites('').first;
+    final ids = stream.map((e) => e.id).toList();
+    yield [
+      for (final article in articles)
+        article.copyWith(isFavorite: ids.contains(article.id))
+    ];
   }
 
-  Stream<List<Article>> getFavorites(String? searchTerm) {
-    return dao.getFavorites(searchTerm ?? '');
+  Future<List<Article>> getArticleListPage(
+      int offset, int limit, String? searchTerm) async {
+    final stream = _getArticleListPage(offset, limit, searchTerm);
+    List<Article> list = [];
+    await for (var value in stream) {
+      list += value;
+    }
+    return list;
+  }
+
+  Stream<List<Article>> get favorites {
+    return _dao.getFavorites('');
   }
 
   Future<void> setFavorite(Article article, bool favorite) {
-    final id = article.id;
-    return dao.insert(article).then((value) => dao.setFavorite(id, favorite));
+    return favorite ? _dao.addFavorite(article) : _dao.removeFavorite(article);
   }
 }

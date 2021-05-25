@@ -1,17 +1,14 @@
-import 'package:docnews/resources/colors.dart';
+import 'package:docnews/data/db.dart';
+import 'package:docnews/data/service_locator.dart';
 import 'package:flutter/material.dart';
 
-class FavoriteButton extends StatefulWidget {
-  final bool isFavorite;
-  final Function onPressed;
+import 'package:docnews/resources/colors.dart';
+import 'package:docnews/viewmodels/favorites_view_model.dart';
 
-  FavoriteButton({
-    Key? key,
-    bool? isFavorite,
-    required Function onPressed,
-  })   : isFavorite = isFavorite ?? false,
-        onPressed = onPressed,
-        super(key: key);
+class FavoriteButton extends StatefulWidget {
+  final Article article;
+
+  const FavoriteButton({Key? key, required this.article}) : super(key: key);
 
   @override
   _FavoriteButtonState createState() => _FavoriteButtonState();
@@ -23,22 +20,20 @@ class _FavoriteButtonState extends State<FavoriteButton> {
   @override
   void initState() {
     super.initState();
-    _isFavorite = widget.isFavorite;
-  }
-
-  void _onPressed() {
-    // TODO: This is temporary, might change to Stateless later
-    setState(() {
-      _isFavorite = !_isFavorite;
-    });
-    widget.onPressed();
+    _isFavorite = widget.article.isFavorite;
   }
 
   @override
   Widget build(BuildContext context) {
+    final favorites = locator.get<FavoritesViewModel>();
     return IconButton(
       iconSize: 24,
-      onPressed: _onPressed,
+      onPressed: () {
+        setState(() {
+          _isFavorite = !_isFavorite;
+        });
+        favorites.setFavorite(widget.article, _isFavorite);
+      },
       icon: AnimatedSwitcher(
         duration: Duration(milliseconds: 200),
         child: _buildIcon(context),

@@ -1,6 +1,6 @@
 import 'dart:async';
+import 'package:docnews/data/service_locator.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 import 'package:docnews/data/repositories/repository.dart';
 import 'package:docnews/widgets/app_search_bar.dart';
@@ -49,6 +49,7 @@ class _FeedTabState extends State<FeedTab> {
 
   @override
   Widget build(BuildContext context) {
+    final repository = locator.get<ArticleRepository>();
     return SafeArea(
       child: Container(
         color: DocnewsColors.gray50,
@@ -58,7 +59,7 @@ class _FeedTabState extends State<FeedTab> {
           onCancelSearch: _onCancelSearch,
           child: PagedArticleListView(
             searchTerm: _searchTerm,
-            repository: Provider.of<ArticleRepository>(context),
+            repository: repository,
             emptyListView: getEmptyView('There are no news yet'),
             headerText: 'News feed',
             errorView: getEmptyView(

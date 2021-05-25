@@ -1,11 +1,5 @@
-import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 
-import 'package:docnews/data/daos/article_dao.dart';
-import 'package:docnews/data/db.dart';
-import 'package:docnews/data/repositories/repository.dart';
-import 'package:docnews/data/service_locator.dart';
-import 'package:docnews/data/services/article_service.dart';
 import 'package:docnews/screens/home/favorites/favorites_tab.dart';
 import 'package:docnews/widgets/rounded_navigation_bar.dart';
 import 'package:docnews/screens/home/feed/feed_tab.dart';
@@ -30,7 +24,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final db = locator.get<AppDatabase>();
     return Scaffold(
       backgroundColor: DocnewsColors.gray50,
       bottomNavigationBar: RoundedNavBar(
@@ -41,16 +34,12 @@ class _HomeScreenState extends State<HomeScreen> {
         currentIndex: _selectedIndex,
         onTap: _onItemTapped,
       ),
-      body: Provider(
-        create: (_) =>
-            ArticleRepository(service: ArticleService(), dao: ArticleDao(db)),
-        child: IndexedStack(
-          index: _selectedIndex,
-          children: <Widget>[
-            FeedTab(),
-            FavoritesTab(),
-          ],
-        ),
+      body: IndexedStack(
+        index: _selectedIndex,
+        children: <Widget>[
+          FeedTab(),
+          FavoritesTab(),
+        ],
       ),
     );
   }

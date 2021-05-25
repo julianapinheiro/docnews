@@ -40,7 +40,7 @@ class ArticleInfoView extends StatelessWidget {
         SizedBox(
           width: 24,
         ),
-        FavoriteButton(isFavorite: false, onPressed: () {})
+        FavoriteButton(article: article)
       ],
     );
   }

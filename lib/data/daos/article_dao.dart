@@ -19,8 +19,14 @@ class ArticleDao extends DatabaseAccessor<AppDatabase> with _$ArticleDaoMixin {
         .watch();
   }
 
-  Future<void> setFavorite(String id, bool favorite) async {
-    await (update(articles)..where((a) => a.id.equals(id)))
-        .write(ArticlesCompanion(isFavorite: Value(favorite)));
+  Future<Article> addFavorite(Article article) async {
+    final _article = article.copyWith(isFavorite: true);
+    into(articles).insert(_article, mode: InsertMode.replace);
+    return _article;
+  }
+
+  Future<Article> removeFavorite(Article article) async {
+    delete(articles).delete(article);
+    return article.copyWith(isFavorite: false);
   }
 }
