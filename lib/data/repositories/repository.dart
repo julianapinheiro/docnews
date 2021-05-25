@@ -14,7 +14,7 @@ class ArticleRepository {
       int offset, int limit, String? searchTerm) async* {
     final articles =
         await _service.fetchArticles(offset, limit, searchTerm ?? '');
-    final stream = await _dao.getFavorites('').first;
+    final stream = await _dao.getFavorites().first;
     final ids = stream.map((e) => e.id).toList();
     yield [
       for (final article in articles)
@@ -33,7 +33,7 @@ class ArticleRepository {
   }
 
   Stream<List<Article>> get favorites {
-    return _dao.getFavorites('');
+    return _dao.getFavorites();
   }
 
   Future<void> setFavorite(Article article, bool favorite) {

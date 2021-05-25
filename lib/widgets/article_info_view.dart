@@ -5,8 +5,6 @@ import 'package:docnews/resources/colors.dart';
 import 'package:docnews/utils/date_formatter.dart';
 import 'package:docnews/widgets/favorite_button.dart';
 
-import '../resources/colors.dart';
-
 class ArticleInfoView extends StatelessWidget {
   final Article article;
 

@@ -8,6 +8,7 @@ class AppSearchBar extends StatefulWidget {
   final TextEditingController? textController;
   final VoidCallback? onCancelSearch;
   final Widget? child;
+  final bool enableSearch;
 
   const AppSearchBar({
     Key? key,
@@ -15,7 +16,9 @@ class AppSearchBar extends StatefulWidget {
     this.textController,
     this.onCancelSearch,
     this.child,
-  }) : super(key: key);
+    enableSearch,
+  })  : this.enableSearch = enableSearch ?? true,
+        super(key: key);
 
   @override
   _AppSearchBarState createState() => _AppSearchBarState();
@@ -114,22 +117,24 @@ class _AppSearchBarState extends State<AppSearchBar>
                       ),
                     ),
                     Spacer(),
-                    AnimatedSwitcher(
-                      transitionBuilder:
-                          (Widget child, Animation<double> animation) {
-                        return ScaleTransition(child: child, scale: animation);
-                      },
-                      duration: Duration(milliseconds: 400),
-                      child: IconButton(
-                        icon: ImageIcon(AssetImage(_isExpanded
-                            ? 'assets/icons/ic_clear.png'
-                            : 'assets/icons/ic_search.png')),
-                        key: ValueKey<bool>(_isExpanded),
-                        color: Colors.white,
-                        iconSize: 24,
-                        onPressed: _playAnimation,
+                    if (widget.enableSearch)
+                      AnimatedSwitcher(
+                        transitionBuilder:
+                            (Widget child, Animation<double> animation) {
+                          return ScaleTransition(
+                              child: child, scale: animation);
+                        },
+                        duration: Duration(milliseconds: 400),
+                        child: IconButton(
+                          icon: ImageIcon(AssetImage(_isExpanded
+                              ? 'assets/icons/ic_clear.png'
+                              : 'assets/icons/ic_search.png')),
+                          key: ValueKey<bool>(_isExpanded),
+                          color: Colors.white,
+                          iconSize: 24,
+                          onPressed: _playAnimation,
+                        ),
                       ),
-                    ),
                   ],
                 ),
               ),

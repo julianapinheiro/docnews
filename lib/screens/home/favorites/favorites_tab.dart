@@ -7,8 +7,7 @@ import 'package:docnews/viewmodels/favorites_view_model.dart';
 import 'package:docnews/widgets/app_search_bar.dart';
 import 'package:docnews/widgets/article_item.dart';
 import 'package:docnews/widgets/empty_list_view.dart';
-
-import '../../../resources/colors.dart';
+import 'package:docnews/resources/colors.dart';
 
 class FavoritesTab extends StatefulWidget {
   @override
@@ -40,6 +39,7 @@ class _FavoritesTabState extends State<FavoritesTab> {
         color: DocnewsColors.gray50,
         child: AppSearchBar(
           title: 'Favorites',
+          enableSearch: false,
           textController: _textController,
           onCancelSearch: _onCancelSearch,
           child: StreamBuilder(

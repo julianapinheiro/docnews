@@ -12,16 +12,13 @@ class ArticleDao extends DatabaseAccessor<AppDatabase> with _$ArticleDaoMixin {
     into(articles).insertOnConflictUpdate(article);
   }
 
-  Stream<List<Article>> getFavorites(String searchTerm) {
-    return (select(articles)
-          ..where(
-              (a) => a.isFavorite.equals(true) & a.title.contains(searchTerm)))
-        .watch();
+  Stream<List<Article>> getFavorites() {
+    return (select(articles)..where((a) => a.isFavorite.equals(true))).watch();
   }
 
   Future<Article> addFavorite(Article article) async {
     final _article = article.copyWith(isFavorite: true);
-    into(articles).insert(_article, mode: InsertMode.replace);
+    into(articles).insertOnConflictUpdate(_article);
     return _article;
   }
 
