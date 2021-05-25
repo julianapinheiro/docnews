@@ -19,12 +19,15 @@ class LoaderImage extends StatelessWidget {
         if (loadingProgress == null) {
           return child;
         }
-        return Center(
-          child: CircularProgressIndicator(
-            value: loadingProgress.expectedTotalBytes != null
-                ? loadingProgress.cumulativeBytesLoaded /
-                    loadingProgress.expectedTotalBytes!
-                : null,
+        return ConstrainedBox(
+          constraints: BoxConstraints(minHeight: 120),
+          child: Center(
+            child: CircularProgressIndicator(
+              value: loadingProgress.expectedTotalBytes != null
+                  ? loadingProgress.cumulativeBytesLoaded /
+                      loadingProgress.expectedTotalBytes!
+                  : null,
+            ),
           ),
         );
       },

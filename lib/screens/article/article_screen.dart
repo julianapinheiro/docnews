@@ -37,60 +37,61 @@ class _ArticleScreenState extends State<ArticleScreen> {
       body: ListView(
         children: [
           Stack(
+            alignment: Alignment.bottomCenter,
             children: [
-              AspectRatio(
-                aspectRatio: 360 / 240,
-                child: LoaderImage(
-                  imageUrl: widget.article.imageUrl,
-                ),
+              LoaderImage(
+                imageUrl: widget.article.imageUrl,
               ),
               Container(
-                padding: EdgeInsets.only(top: 223),
+                height: 18,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                      topRight: Radius.circular(16),
+                      topLeft: Radius.circular(16)),
+                ),
+              ),
+            ],
+          ),
+          Column(
+            children: [
+              Container(
+                color: Colors.white,
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Container(
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(16.0),
-                      ),
-                      padding: const EdgeInsets.all(16.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            widget.article.title,
-                            style: TextStyle(
-                              color: DocnewsColors.gray800,
-                              fontWeight: FontWeight.w500,
-                              fontSize: 16,
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(
-                              top: 16.0,
-                              bottom: 12.0,
-                            ),
-                            child: Divider(
-                              thickness: 1,
-                            ),
-                          ),
-                          getAuthorInfo(widget.article.newsSite),
-                          ArticleInfoView(article: widget.article),
-                        ],
+                    Text(
+                      widget.article.title,
+                      style: TextStyle(
+                        color: DocnewsColors.gray800,
+                        fontWeight: FontWeight.w500,
+                        fontSize: 16,
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 16.0, vertical: 24.0),
-                      child: Text(
-                        widget.article.summary,
-                        style: TextStyle(
-                          color: DocnewsColors.gray700,
-                          fontSize: 16.0,
-                        ),
+                      padding: const EdgeInsets.only(
+                        top: 16.0,
+                        bottom: 12.0,
+                      ),
+                      child: Divider(
+                        thickness: 1,
                       ),
                     ),
+                    getAuthorInfo(widget.article.newsSite),
+                    ArticleInfoView(article: widget.article),
                   ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 16.0, vertical: 24.0),
+                child: Text(
+                  widget.article.summary,
+                  style: TextStyle(
+                    color: DocnewsColors.gray700,
+                    fontSize: 16.0,
+                  ),
                 ),
               ),
             ],
