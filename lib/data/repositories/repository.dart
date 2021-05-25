@@ -39,4 +39,8 @@ class ArticleRepository {
   Future<void> setFavorite(Article article, bool favorite) {
     return favorite ? _dao.addFavorite(article) : _dao.removeFavorite(article);
   }
+
+  Stream<bool> isFavorite(Article article) {
+    return _dao.isFavorite(article);
+  }
 }

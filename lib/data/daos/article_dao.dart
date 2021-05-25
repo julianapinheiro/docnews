@@ -26,4 +26,11 @@ class ArticleDao extends DatabaseAccessor<AppDatabase> with _$ArticleDaoMixin {
     delete(articles).delete(article);
     return article.copyWith(isFavorite: false);
   }
+
+  Stream<bool> isFavorite(Article article) {
+    final _article = (select(articles)..where((e) => e.id.equals(article.id)))
+        .watchSingle()
+        .map((e) => e.isFavorite);
+    return _article;
+  }
 }

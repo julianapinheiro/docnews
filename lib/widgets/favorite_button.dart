@@ -15,41 +15,48 @@ class FavoriteButton extends StatefulWidget {
 }
 
 class _FavoriteButtonState extends State<FavoriteButton> {
-  bool _isFavorite = false;
-
-  @override
-  void initState() {
-    super.initState();
-    _isFavorite = widget.article.isFavorite;
-  }
+  final favorites = locator.get<FavoritesViewModel>();
 
   @override
   Widget build(BuildContext context) {
-    final favorites = locator.get<FavoritesViewModel>();
+    final isFavorite = favorites.isFavorite(widget.article);
+    return StreamBuilder(
+        stream: isFavorite,
+        builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
+          if (snapshot.hasError) {
+            return _buildIcon(false);
+          } else if (snapshot.connectionState == ConnectionState.waiting) {
+            return Container(
+                height: 24, width: 24, child: CircularProgressIndicator());
+          } else if (snapshot.hasData) {
+            return _buildIcon(snapshot.data!);
+          }
+          return SizedBox(height: 24, width: 24);
+        });
+  }
+
+  Widget _buildIcon(bool isFavorite) {
     return IconButton(
       iconSize: 24,
       onPressed: () {
-        setState(() {
-          _isFavorite = !_isFavorite;
-        });
-        favorites.setFavorite(widget.article, _isFavorite);
+        favorites.setFavorite(widget.article, !isFavorite);
       },
       icon: AnimatedSwitcher(
         duration: Duration(milliseconds: 200),
-        child: _buildIcon(context),
+        child: _getImage(isFavorite),
       ),
     );
   }
 
-  Widget _buildIcon(BuildContext context) {
+  Widget _getImage(bool isFavorite) {
     return Image.asset(
-      _isFavorite
+      isFavorite
           ? 'assets/icons/ic_favorite.png'
           : 'assets/icons/ic_favorite_outline.png',
-      color: _isFavorite ? DocnewsColors.indigo : DocnewsColors.gray500,
+      color: isFavorite ? DocnewsColors.indigo : DocnewsColors.gray500,
       width: 24,
       height: 24,
-      key: ValueKey<bool>(_isFavorite),
+      key: ValueKey<bool>(isFavorite),
     );
   }
 }

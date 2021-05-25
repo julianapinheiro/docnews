@@ -16,4 +16,8 @@ class FavoritesViewModel extends ChangeNotifier {
   void setFavorite(Article article, bool isFavorite) {
     _repository.setFavorite(article, isFavorite);
   }
+
+  Stream<bool> isFavorite(Article article) {
+    return _repository.isFavorite(article);
+  }
 }
