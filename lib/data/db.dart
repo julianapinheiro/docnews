@@ -15,7 +15,7 @@ part 'db.g.dart';
   ArticleDao,
 ])
 class AppDatabase extends _$AppDatabase {
-  AppDatabase() : super(_createDatabase());
+  AppDatabase([QueryExecutor? executor]) : super(executor ?? _createDatabase());
 
   @override
   int get schemaVersion => 1;

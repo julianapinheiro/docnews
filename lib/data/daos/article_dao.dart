@@ -8,10 +8,6 @@ part 'article_dao.g.dart';
 class ArticleDao extends DatabaseAccessor<AppDatabase> with _$ArticleDaoMixin {
   ArticleDao(AppDatabase db) : super(db);
 
-  Future<void> insert(Article article) async {
-    into(articles).insertOnConflictUpdate(article);
-  }
-
   Stream<List<Article>> getFavorites() {
     return (select(articles)..where((a) => a.isFavorite.equals(true))).watch();
   }
