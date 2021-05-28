@@ -1,16 +1,25 @@
 # docnews
 
-A new Flutter project.
+A Flutter project.
 
-## Getting Started
+## How to run
 
-This project is a starting point for a Flutter application.
+Running on a simulator (iOS or Android) or on an Android device:
 
-A few resources to get you started if this is your first Flutter project:
+```
+flutter run --no-sound-null-safety
+```
+The flag is needed because the project uses a lib that doesn't support null-safety yet.
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+To run on an iOS device, you need Xcode and an Apple Account.
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+There are also some tests, to run them type:
+
+```
+flutter test
+```
+
+## Kanban board
+
+A simpler version of a kanban board was used on development, please check it out at [Docnews project](https://github.com/julianapinheiro/docnews/projects/1).
+Some features and bugs are missing due to time restrictions and are listed on the **To do** column
