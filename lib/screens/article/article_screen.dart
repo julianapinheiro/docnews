@@ -39,8 +39,11 @@ class _ArticleScreenState extends State<ArticleScreen> {
           Stack(
             alignment: Alignment.bottomCenter,
             children: [
-              LoaderImage(
-                imageUrl: widget.article.imageUrl,
+              Padding(
+                padding: const EdgeInsets.only(bottom: 1.0),
+                child: LoaderImage(
+                  imageUrl: widget.article.imageUrl,
+                ),
               ),
               Container(
                 height: 18,
