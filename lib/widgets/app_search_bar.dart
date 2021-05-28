@@ -129,7 +129,9 @@ class _AppSearchBarState extends State<AppSearchBar>
                           icon: ImageIcon(AssetImage(_isExpanded
                               ? 'assets/icons/ic_clear.png'
                               : 'assets/icons/ic_search.png')),
-                          key: ValueKey<bool>(_isExpanded),
+                          key: _isExpanded
+                              ? Key('clearButton')
+                              : Key('searchButton'),
                           color: Colors.white,
                           iconSize: 24,
                           onPressed: _playAnimation,
